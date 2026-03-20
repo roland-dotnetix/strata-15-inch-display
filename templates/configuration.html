@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block content %}
+<html>
+  <head>
+
+    <style>
+      .item1 { grid-area: configuration; }
+      .item2 { grid-area: name; }
+      .item3 { grid-area: value; }
+      .item4 { grid-area: new_value; }
+
+      .item5 { grid-area: zone_warnings; }
+      .item6 { grid-area: zone_warn_name; }
+      .item7 { grid-area: zone_warn_value; }
+      .item8 { grid-area: zone_warn_input; }
+      .item9 { grid-area: zone_slow_name; }
+      .item10 { grid-area: zone_slow_value; }
+      .item11 { grid-area: zone_slow_input; }
+      .item12 { grid-area: zone_stop_name; }
+      .item13 { grid-area: zone_stop_value; }
+      .item14 { grid-area: zone_stop_input; }
+      .item66 { grid-area: zone_void_name; }
+      .item67 { grid-area: zone_void_value; }
+      .item68 { grid-area: zone_void_input; }
+      .item15 { grid-area: zone_update_message; }
+
+
+      .item25 { grid-area: alert_volume; }
+      .item26 { grid-area: alert_volume_name; }
+      .item27 { grid-area: alert_volume_value; }
+      .item28 { grid-area: alert_volume_input; }
+      .item29 { grid-area: alert_volume_update_message; }
+
+      .item16 { grid-area: connected_cameras; }
+      .item17 { grid-area: connected_cameras_name; }
+      .item18 { grid-area: connected_cameras_value; }
+      .item19 { grid-area: connected_cameras_input; }
+      .item20 { grid-area: connected_cameras_update_message; }
+
+      .item21 { grid-area: update_values_header; }
+      .item22 { grid-area: update_form; }
+
+      .item98 { grid-area: multi_cam_message; }
+      .item99 { grid-area: multi_cam_name; }
+      .item100 { grid-area: multi_cam_value; }
+      .item101 { grid-area: multi_cam_input; }
+      .item102 { grid-area: multi_cam_update_message; }
+
+      .grid-container {
+        display: grid;
+        grid-template-areas:
+          'configuration configuration configuration'
+          'name value new_value'
+
+          'multi_cam_message multi_cam_message multi_cam_message'
+          'multi_cam_name multi_cam_value multi_cam_input'
+          'multi_cam_update_message multi_cam_update_message multi_cam_update_message'
+          'zone_warnings zone_warnings zone_warnings'
+          'zone_warn_name zone_warn_value zone_warn_input'
+          'zone_slow_name zone_slow_value zone_slow_input'
+          'zone_stop_name zone_stop_value zone_stop_input'
+          'zone_void_name zone_void_value zone_void_input'
+          'zone_update_message zone_update_message zone_update_message'
+
+
+          'alert_volume alert_volume alert_volume'
+          'alert_volume_name alert_volume_value alert_volume_input'
+          'alert_volume_update_message alert_volume_update_message alert_volume_update_message'
+
+          'connected_cameras connected_cameras connected_cameras'
+          'connected_cameras_name connected_cameras_value connected_cameras_input'
+          'connected_cameras_update_message connected_cameras_update_message connected_cameras_update_message'
+
+          'update_values_header update_form update_form';
+        grid-gap: 7px;
+        background-color: #808080;
+        padding: 7px;
+      }
+
+      .grid-container > div {
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        padding: 8px 0;
+        font-size: 16px;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+  <div class="u-clearfix u-sheet u-sheet-1">
+      <h4>Dotnetix SafEye Display Configuration:</h4>
+      <form action={{url_for('configuration_update')}} method="post">
+          <div class="grid-container">
+              <div class="item1">
+                  <p><b>Configuration:</b></p>
+                  <p>Current values are displayed in the "Current value" column.</p>
+                  <p>Enter new values in the "New value" column. Leave black for unchanged.</p>
+                  <p>Click the update button after values have been entered.</p>
+              </div>
+              <div class="item2"> <b>Name:</b> </div>
+              <div class="item3"> <b>Current value:</b> </div>
+              <div class="item4"> <b>New value:</b> </div>
+
+              <div class="item98">
+                  <p><b>Multi-camera display:</b></p>
+                  <p>This value controls if the display is paired with a mini-hub or not.</p>
+                  <p>Values: 1 for mini-hub - 0 for all others.</p>
+              </div>
+
+              <div class="item99"><b>Multi-camera setting:</b></div>
+              <div class="item100"> {{ value_multi_cam }} </div>
+              <div class="item101"> <input type=text name=multi_cam_update> </div>
+              <div class="item102"> {{ message_multi_cam_update}} </div>
+
+              <div class="item5">
+                  <p><b>Zone warning frequency:</b></p>
+                  <p>This value sets the time between repeating beeps during zones.</p>
+                  <p>Value in seconds. Min 0.1 - 10 seconds max.</p>
+              </div>
+              <div class="item6"><b>Warn zone frequency:</b></div>
+              <div class="item7"> {{ value_warn_zone }} </div>
+              <div class="item8"> <input type=text name=warn_zone_frequency_update> </div>
+              <div class="item9"> <b>Slow down zone frequency:</b> </div>
+              <div class="item10"> {{ value_slow_zone }} </div>
+              <div class="item11"> <input type=text name=slow_zone_frequency_update> </div>
+              <div class="item12"> <b>Stop zone frequency:</b> </div>
+              <div class="item13"> {{ value_stop_zone }} </div>
+              <div class="item14"> <input type=text name=stop_zone_frequency_update> </div>
+              <div class="item66"> <b>Void zone frequency:</b> </div>
+              <div class="item67"> {{ value_void_zone }} </div>
+              <div class="item68"> <input type=text name=void_zone_frequency_update> </div>
+              <div class="item15"> {{ message_zone_update }} </div>
+
+
+              <div class="item25">
+                  <p><b>Alert level volume:</b></p>
+                  <p>This value sets the volume of the alert tones.</p>
+                  <p>Volume level. Min 1 - 100 max.</p>
+              </div>
+
+              <div class="item26"><b>Alert volume:</b></div>
+              <div class="item27"> {{ value_alert_volume }} </div>
+              <div class="item28"> <input type=text name=alert_volume_update> </div>
+              <div class="item29"> {{ message_alert_volume_update}} </div>
+
+              <div class="item16">
+                  <p><b>Connected cameras:</b></p>
+                  <p>This value sets the amount of cameras connected to the SafEye controller.</p>
+                  <p>1-4 cameras.</p>
+              </div>
+
+              <div class="item17"> <b>Connected cameras:</b> </div>
+              <div class="item18"> {{ value_cameras_to_display }} </div>
+              <div class="item19">
+                  <select id="cameras_to_display" name="cameras_to_display">
+                      <option value="0">Unchanged</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                  </select>
+              </div>
+              <div class="item20"> {{ message_cameras_to_display_update }} <p></p></div>
+              <div class="item21"> <b>Update values:</b> </div>
+              <div class="item22"><input type=submit value=Update></div>
+            </div>
+      </form>
+  </div>
+  </body>
+
+</html>
+{% endblock %}

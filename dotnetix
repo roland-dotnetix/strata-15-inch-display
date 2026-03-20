@@ -1,0 +1,13 @@
+#!/bin/bash
+sleep 9
+sudo ufw allow 5000/udp
+sudo ufw allow 80/udp
+sudo ufw allow 80/tcp
+#echo '1' >/sys/class/graphics/fb0/rotate
+#sudo systemctl stop gdm3
+#sudo ifconfig eth0 172.17.1.10
+#sudo ifconfig eth0 add 172.17.1.2
+export DISPLAY=:0
+sudo ufw allow 5000/udp
+#sudo service lightdm stop
+sudo python3 /home/strata-pi/dotnetix/safeye/disp_control.py

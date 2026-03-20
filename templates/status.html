@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<html>
+  <style>
+      .item1 { grid-area: controller_label; }
+      .item4 { grid-area: socket_serv_name; }
+      .item5 { grid-area: socket_serv_boolean; }
+      .item6 { grid-area: socket_con_name; }
+      .item7 { grid-area: socket_con_value; }
+
+      .grid-container {
+        display: grid;
+        grid-template-areas:
+          'controller_label controller_label controller_label'
+          'socket_serv_name socket_serv_boolean socket_serv_boolean'
+          'socket_con_name socket_con_value socket_con_value';
+        grid-gap: 8px;
+        background-color: #808080;
+        padding: 8px;
+      }
+
+      .grid-container > div {
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        padding: 16px 0;
+        font-size: 25px;
+      }
+   </style>
+
+  <body class="u-body">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+
+      function update_values() {
+            $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+            $.getJSON($SCRIPT_ROOT+"/update_status_values",
+                function(data) {
+
+                    $('#label_socket_serv').text(data.json_socket_serv);
+                    $('#label_socket_cons').text(data.json_socket_cons);
+
+                    setTimeout(update_values, 200);
+
+                });
+        }
+
+    setTimeout(update_values, 2000);
+
+    </script>
+
+  <div class="u-clearfix u-sheet u-sheet-1">
+    <h4> Dotnetix SafEye Nano Status:</h4>
+    <div class="grid-container">
+      <div class="item1"> <b>Controller status:</b> </div>
+
+
+      <div class="item4"> <b>Socket server</b> </div>
+      <div class="item5"> <label id="label_socket_serv"> {{ value_socket_server }} </label> </div>
+      <div class="item6"> <b>Cameras connected</b> </div>
+      <div class="item7"> <label id="label_socket_cons"> {{ value_socket_cons }} </label> </div>
+      
+    </div>
+  </div>
+  </body>
+</html>
+{% endblock %}

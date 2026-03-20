@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<html>
+  <head>
+
+
+  </head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>function myFunction(event) {
+
+  var offset_top = document.getElementById("display_frame").offsetTop + document.getElementById("cam_sheet").offsetTop;
+  var offset_left = document.getElementById("display_frame").offsetLeft + document.getElementById("cam_sheet").offsetLeft;
+
+
+  var text1 = event.clientX - offset_left;
+  var text2 = event.pageY - offset_top;
+<!--  document.getElementById("demo").innerHTML = text2;-->
+    $.ajax({
+                url: "/camera_calibration",
+                type: "POST",
+                data: {text1:text1,
+                text2:text2}          }).done(function(response) {            var html= "<br><br><br><p> <b> RESULT : <b><p>";            response =response.result;
+                   $.each(response,function(key,val){
+                   console.log(val);
+                      html+="<p>"+val+"<p>"                });
+                  html +="<br>";
+                  $(".show-data").append(html);
+              });
+  };  </script>
+
+  <body>
+
+      <div class="u-clearfix u-sheet u-sheet-1" id = "cam_sheet">
+          <h4> Dotnetix SafEye Nano cameras:</h4>
+          <p class="u-text u-text-variant u-text-1"> This page allows selecting cameras, editing camera detection zones and downloading incident logs and videos.</p>
+
+          <p class="u-text u-text-variant u-text-1"> Edit camera detection zone:</p>
+          <ul style="list-style-type:square;">
+              <li class="u-small-text u-text u-text-variant u-text-1"> Select a camera by <b>clicking on the camera</b> in the viewport.</li>
+              <li class="u-small-text u-text u-text-variant u-text-1"> Click on the camera view to update the detection zone. <b>NOTE: detection zone takes 5 seconds to update.</b></li>
+              <li class="u-small-text u-text u-text-variant u-text-1"> To <b>return</b> to the camera selection viewport, <b>click on Cameras</b> in the Navigation Pane</li>
+          </ul>
+
+          <p class="u-text u-text-variant u-text-1"> Download camera incident logs and videos:</p>
+<!--          <p>Calc point is: <span id="demo"></span></p>-->
+
+          <ul style="list-style-type:square;">
+              <li class="u-small-text u-text u-text-variant u-text-1"> Select a camera by <b>clicking on the camera</b> in the viewport.</li>
+              <li class="u-small-text u-text u-text-variant u-text-1"> Click on the <b>Open Camera</b> button to open the camera interface.</li>
+          </ul>
+
+          <img id="display_frame" onclick="myFunction(event)" src="{{ url_for('camera_display') }}">
+
+          <form action={{url_for('camera_open')}} method="post" target="_blank">
+              <p><input type=submit value="Open camera" name="open_camera">{{ message_open_camera }}
+          </form>
+
+      </div>
+  </body>
+</html>
+{% endblock %}

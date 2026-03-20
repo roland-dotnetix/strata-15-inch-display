@@ -1,0 +1,121 @@
+<html style="font-size: 16px;">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+
+        {% if title %}
+        <title>Dotnetix {{ title }}</title>
+        {% else %}
+        <title>Dotnetix SafEye Display</title>
+        {% endif %}
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}" media="screen">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/login.css') }}" media="screen">
+        <script src="{{ url_for('static', filename='scripts/jquery.js')}}"></script>
+        <script src="{{ url_for('static', filename='scripts/main.js')}}"></script>
+
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Organization",
+                "name": "",
+                "url": "login.html",
+                "logo": "{{url_for('static', filename='dotnetix.jpg')}}"
+            }
+        </script>
+        <meta property="og:title" content="login">
+        <meta property="og:type" content="website">
+        <meta property="og:description" content="undefined">
+        <meta name="theme-color" content="#4d6eaa">
+        <link rel="canonical" href="login.html">
+        <meta property="og:url" content="login.html">
+    </head>
+    <body class="u-body">
+        <header class="u-clearfix u-header u-header" id="sec-e228">
+            <div class="u-clearfix u-sheet u-sheet-1 "><p class="u-image u-logo u-image-1" src="">
+                <img src="{{url_for('static', filename='dotnetix.png')}}" class="u-logo-image u-logo-image-1">
+                <td>Advanced Video Analytics</td>
+            </div>
+        </header>
+        {% if nav_bar %}
+            <nav class="u-menu u-offcanvas u-grey-80 u-valign-middle">
+                <div class="menu-collapse">
+                    <a class="u-button-style u-nav-link" href="#">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
+                        </svg>
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <defs>
+                                <symbol id="menu-hamburger" viewBox="0 0 16 16" style="width: 16px; height: 16px;">
+                                    <rect y="1" width="16" height="2"></rect>
+                                    <rect y="7" width="16" height="2"></rect>
+                                    <rect y="13" width="16" height="2"></rect>
+                                </symbol>
+                            </defs>
+                        </svg>
+                    </a>
+                </div>
+                <div class="u-nav-container">
+                    <ul class="u-nav u-grey-80">
+                        <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                  href="/">Home</a>
+                        </li>
+                        <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                  href="/status">Status</a></li>
+                        <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                  href="/cameras">Cameras</a></li>
+                        <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                  href="/configuration">Configuration</a></li>
+                        <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                  href="/update">Update Firmware</a></li>
+                        <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                  href="/admin">Admin</a></li>
+                        <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                  href="/logout">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="u-nav-container-collapse">
+                    <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-85 u-sidenav">
+                        <div class="u-menu-close"></div>
+                        <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                            <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                      href="/">Home</a></li>
+                            <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                      href="/status">Status</a></li>
+                            <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                      href="/cameras">Cameras</a></li>
+                            <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                      href="/configuration">Configuration</a></li>
+                            <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                      href="/update">Update Firmware</a></li>
+                            <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                      href="/admin">Admin</a></li>
+                            <li class="u-nav-item"><a class="u-button-style u-hover-palette-1-base u-nav-link u-grey-80"
+                                                      href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </nav>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+
+
+        <footer class="u-clearfix u-footer u-grey-80" id="sec-b158">
+            <div class="u-clearfix u-sheet u-sheet-1">
+                <div class="u-align-center u-container-style u-group u-group-1">
+                    <div class="u-container-layout u-valign-middle u-container-layout-1">
+                        <p class="u-small-text u-text u-text-variant u-text-1">SafEye Nano</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <section class="u-backlink u-clearfix u-grey-80">
+            <p class="u-text"><span>(c) 2020</span></p>
+            <a class="u-link" href="http://dotnetix.ai" target="_blank"><span>Dotnetix</span></a>.
+        </section>
+   </body>
+</html>

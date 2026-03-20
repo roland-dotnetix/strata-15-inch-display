@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="u-clearfix u-section-1" id="sec-69cd">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-clearfix u-expanded-width u-gutter-0 u-layout-wrap">
+            <div class="u-layout">
+                <div class="u-layout-row">
+
+                </div>
+            </div>
+        </div>
+        <div class="u-form u-form-1">
+            <form action="" method="POST">
+                <p>{{ message }}</p>
+                <!-- hidden inputs for siteId and pageId -->
+                <input type="hidden" id="siteId" name="siteId" value="335402272">
+                <input type="hidden" id="pageId" name="pageId" value="699004521">
+                <div class="u-form-group u-form-name">
+
+                </div>
+                <div class="u-form-group u-form-name">
+                    <label for="name-0541" class="u-form-control-hidden u-label">username</label>
+                    <p><input type="text" placeholder="Username" name="username" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+                </div>
+                <!-- always visible -->
+                <div class="u-form-email u-form-group">
+                    <label for="email-0541" class="u-form-control-hidden u-label">password</label>
+                    <p><input type="password" placeholder="Password" name="password" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+                </div>
+                <div class="u-form-group u-form-submit" style="text-align: center;">
+                    <a href="#" class="u-btn u-btn-submit u-button-style u-grey-80">Login</a>
+                    <p><input type="submit" value="login" class="u-form-control-hidden u-input-rectangle u-text-palette-1-base u-white">
+                </div>
+            </form>
+         </div>
+    </div>
+</section>
+
+
+{% endblock %}

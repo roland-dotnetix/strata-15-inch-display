@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<html>
+      <body>
+          <div class="u-clearfix u-sheet u-sheet-1">
+                <h4>Dotnetix SafEye Display update:</h4>
+                This page contains the software update functions of the SafEye Nano Display.
+
+                <p class="u-text u-text-variant u-text-1">Display software version: {{ software_version_message }}</p>
+                <h5>Upload new software:</h5>
+                <p class="u-text u-text-variant u-text-1">Select a SafEye Display software file from the upload button below:</p>
+                <p class="u-text u-text-variant u-text-1">NOTE: Uploading may take up to 30 seconds.</p>
+                <form action={{url_for('update_upload_software')}} method="post" enctype=multipart/form-data>
+                      <input type=file name=file>
+                      <input type=submit value=Upload>{{ upload_software_message }}
+                </form>
+
+                <h5>Safeye Display reboot:</h5>
+                <p class="u-text u-text-variant u-text-1">Click on reboot to reboot the display:</p>
+                <form action={{url_for('update_reboot')}} method="post">
+                    <p class="u-text u-text-variant u-text-1"><input type=submit value=Reboot name="reboot">
+                </form>
+          </div>
+      </body>
+
+</html>
+{% endblock %}
